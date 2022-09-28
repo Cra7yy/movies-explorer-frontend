@@ -7,7 +7,7 @@ const Portfolio = () => {
     <StyledPortfolio>
         <StyledContainer>
 
-          <section className='portfolio'>
+          <div className='portfolio'>
             <h3 className='portfolio__title'>Портфолио</h3>
             <ul className='portfolio__list'>
               <li className='portfolio__item'>
@@ -23,7 +23,7 @@ const Portfolio = () => {
                    className='portfolio__link'>Одностраничное приложение</a>
               </li>
             </ul>
-          </section>
+          </div>
 
         </StyledContainer>
     </StyledPortfolio>

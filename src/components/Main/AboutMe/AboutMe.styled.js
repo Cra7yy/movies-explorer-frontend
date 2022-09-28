@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledAboutMe = styled.div`
+const StyledAboutMe = styled.section`
   .about-me {
     padding: 110px 0 101px;
 

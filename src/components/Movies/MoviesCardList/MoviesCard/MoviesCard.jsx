@@ -20,18 +20,16 @@ const MoviesCard = () => {
   }
 
   return (
-    <StyledMoviesCard>
-      <li className='movies__item'>
+    <StyledMoviesCard className='movies__item'>
         <img className='movies__img' src='/images/film.png' alt='фильм'/>
         <div className='movies__block'>
           <h4 className='movies__title'>33 слова о дизайне</h4>
-          <button className='movies__like' onClick={ handleLike }>
+          <button type='button' className='movies__like' onClick={ handleLike }>
             { actionButton() }
           </button>
         </div>
         <div className='movies__border'></div>
         <p className='movies__time'>1ч 42м</p>
-      </li>
     </StyledMoviesCard>
   )
 }

@@ -5,8 +5,7 @@ const Footer = () => {
   return (
     <StyledFooter>
       <StyledContainer>
-
-        <footer className='footer'>
+        <div className='footer'>
           <h4 className='footer__title'>Учебный проект Яндекс.Практикум х BeatFilm.</h4>
           <div className='footer__block'>
             <p className='footer__year'>&copy; 2022</p>
@@ -21,8 +20,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-        </footer>
-
+        </div>
       </StyledContainer>
     </StyledFooter>
   )

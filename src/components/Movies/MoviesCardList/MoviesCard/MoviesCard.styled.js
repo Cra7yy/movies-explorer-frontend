@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledMoviesCard = styled.div`
+const StyledMoviesCard = styled.li`
   .movies__item {
   }
 
@@ -63,9 +63,7 @@ const StyledMoviesCard = styled.div`
   }
   
   @media(max-width: 1172px){
-    .movies__item {
-      width: 315px;
-    }
+    width: 315px;
 
     .movies__img {
       width: 315px;
@@ -74,9 +72,7 @@ const StyledMoviesCard = styled.div`
   }
   
   @media(max-width: 1005px){
-    .movies__item {
-      width: 339px;
-    }
+    width: 339px;
 
     .movies__img {
       width: 339px;
@@ -85,10 +81,8 @@ const StyledMoviesCard = styled.div`
   }
 
   @media(max-width: 742px){
-    .movies__item {
-      width: 300px;
-      margin-left: -4px;
-    }
+    width: 300px;
+    margin-left: -4px;
 
     .movies__img {
       width: 300px;

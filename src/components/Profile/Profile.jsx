@@ -1,12 +1,10 @@
 import StyledProfile from './Profile.styled'
-import { StyledContainer } from '../GlobalStyled/Global.styled'
 import { Link } from 'react-router-dom'
 
 const Profile = ({ handleCloseLogin }) => {
   return (
-    <StyledContainer>
       <StyledProfile>
-        <section className='profile'>
+        <div className='profile'>
           <h2 className='profile__title'>Привет, Виталий!</h2>
           <form className='profile__form'>
             <fieldset className='profile__fieldset'>
@@ -23,9 +21,8 @@ const Profile = ({ handleCloseLogin }) => {
             <p className='profile__redact'>Редактировать</p>
           </form>
           <Link to='/signup' className='profile__link' onClick={ handleCloseLogin }>Выйти из аккаунта</Link>
-        </section>
+        </div>
       </StyledProfile>
-    </StyledContainer>
   )
 }
 

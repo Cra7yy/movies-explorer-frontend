@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledProfile = styled.div`
+const StyledProfile = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;

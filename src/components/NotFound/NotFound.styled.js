@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
-const StyledNotFound = styled.div`
+const StyledNotFound = styled.section`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .not-found {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
     &__title {
       font-size: 140px;
       line-height: 169px;

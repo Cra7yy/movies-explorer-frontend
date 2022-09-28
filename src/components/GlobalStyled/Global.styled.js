@@ -1,19 +1,19 @@
 import styled from 'styled-components'
 
-export const StyledColorGrey = styled.div`
+export const StyledColorGrey = styled.section`
   background-color: #272727;
 `
 
-export const StyledColorBlue = styled.div`
+export const StyledColorBlue = styled.section`
   background-color: #073042;
 `
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.main`
   max-width: 1140px;
   margin: 0 auto;
 
   @media (max-width: 1178px) {
-    padding: 0 5px ;
+    padding: 0 15px ;
   }
 
   @media (max-width: 769px) {
@@ -21,8 +21,8 @@ export const StyledContainer = styled.div`
     padding: 0 0;
   }
   
-  @media (max-width: 740px) {
-    padding: 0 5px;
+  @media (max-width: 769px) {
+    padding: 0 15px;
   }
   
   @media (max-width: 480px) {

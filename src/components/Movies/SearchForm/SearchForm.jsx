@@ -3,8 +3,7 @@ import StyledSearchForm from './SearchForm.styled'
 
 const SearchForm = () => {
   return (
-    <StyledSearchForm>
-      <section className='search'>
+    <StyledSearchForm className='search'>
         <form className='search__form'>
           <div className='search__form-block'>
             <fieldset className='search__form-fieldset'>
@@ -19,7 +18,6 @@ const SearchForm = () => {
           <FilterCheckbox/>
 
         </form>
-      </section>
     </StyledSearchForm>
   )
 }

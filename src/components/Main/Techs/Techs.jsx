@@ -1,19 +1,17 @@
 import StyledTechs from './Techs.styled'
-import { StyledContainer, StyledColorGrey } from '../../GlobalStyled/Global.styled'
+import { StyledContainer } from '../../GlobalStyled/Global.styled'
 
 const Techs = () => {
   return (
-    <StyledTechs>
-      <StyledColorGrey>
+    <StyledTechs lassName='techs'>
         <StyledContainer>
-
-          <section className='techs'>
-            <h2 className='techs__title'>Технологии</h2>
-            <div className='techs__block'>
-              <h3 className='techs__subject'>7 технологий</h3>
-              <p className='techs__text'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном
-                проекте.</p>
-              <ul className='techs__list'>
+          <div className='techs'>
+          <h2 className='techs__title'>Технологии</h2>
+          <div className='techs__block'>
+            <h3 className='techs__subject'>7 технологий</h3>
+            <p className='techs__text'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном
+              проекте.</p>
+            <ul className='techs__list'>
                 <li className='techs__item'>HTML</li>
                 <li className='techs__item'>CSS</li>
                 <li className='techs__item'>JS</li>
@@ -23,10 +21,8 @@ const Techs = () => {
                 <li className='techs__item'>mongoDB</li>
               </ul>
             </div>
-          </section>
-
+          </div>
         </StyledContainer>
-      </StyledColorGrey>
     </StyledTechs>
   )
 }

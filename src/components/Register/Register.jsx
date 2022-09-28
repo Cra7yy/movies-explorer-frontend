@@ -1,5 +1,4 @@
 import StyledRegister from './Register.styled'
-import { StyledContainer } from '../GlobalStyled/Global.styled'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../Logo/Logo'
 
@@ -12,9 +11,8 @@ const Register = () => {
   }
 
   return (
-      <StyledContainer>
         <StyledRegister>
-        <section className='register'>
+        <div className='register'>
           <Logo/>
           <h2 className='register__title'>Добро пожаловать!</h2>
           <form className='register__form'>
@@ -34,9 +32,8 @@ const Register = () => {
           <p className='register__subtitle'>Уже зарегистрированы?
             <Link className='register__link' to='/signin'> Войти</Link>
           </p>
-        </section>
+        </div>
         </StyledRegister>
-      </StyledContainer>
   )
 }
 

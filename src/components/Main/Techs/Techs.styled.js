@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
-const StyledTechs = styled.div`
+const StyledTechs = styled.section`
+  padding: 100px 0 100px;
+  background-color: #272727;
+
   .techs {
-    padding: 100px 0 100px;
 
     &__title {
       font-size: 22px;
@@ -54,9 +56,10 @@ const StyledTechs = styled.div`
   }
 
   @media (max-width: 769px) {
+    padding: 90px 0 90px;
+    
     .techs {
       max-width: 668px;
-      padding: 90px 0 90px;
 
       &__block {
         padding-top: 80px;
@@ -87,8 +90,10 @@ const StyledTechs = styled.div`
   }
   
   @media(max-width: 480px){
+    padding: 70px 0 70px;
+    background-color: #202020;
+
     .techs {
-      padding: 70px 0 70px;
       width: 284px;
 
       &__title {

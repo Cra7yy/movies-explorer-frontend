@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
-const StyledAboutProject = styled.div`
+const StyledAboutProject = styled.section`
+  padding-top: 110px;
   .about-project {
-    padding-top: 110px;
-
     &__title {
       font-size: 22px;
       line-height: 27px;
@@ -25,7 +24,7 @@ const StyledAboutProject = styled.div`
     }
 
     &__texts {
-      width: 550px;
+      max-width: 550px;
       display: flex;
       flex-direction: column;
       gap: 26px;
@@ -81,17 +80,18 @@ const StyledAboutProject = styled.div`
   }
 
   @media (max-width: 769px) {
+    padding-top: 90px;
+    
     .about-project {
-      padding-top: 90px;
-      max-width: 668px;
-
+      
       &__block-text {
+        max-width: 668px;
         margin-bottom: 93px;
         gap: 30px;
       }
 
       &__texts {
-        width: 319px;
+        max-width: 319px;
         display: flex;
         flex-direction: column;
         gap: 22px;
@@ -124,10 +124,11 @@ const StyledAboutProject = styled.div`
   }
 
   @media (max-width: 480px) {
+    padding-top: 70px;
+    
     .about-project {
-      padding-top: 70px;
       width: 284px;
-
+      
       &__title {
         font-size: 18px;
         line-height: 22px;

@@ -5,7 +5,7 @@ const AboutMe = () => {
   return (
     <StyledAboutMe>
       <StyledContainer>
-        <section className='about-me'>
+        <div className='about-me'>
           <h2 className='about-me__title'>Студент</h2>
           <div className='about-me__block'>
             <div className='about-me__texts'>
@@ -23,7 +23,7 @@ const AboutMe = () => {
             </div>
             <img src='/images/Ilya.jpg' alt='я' className='about-me__img'/>
           </div>
-        </section>
+        </div>
       </StyledContainer>
     </StyledAboutMe>
   )

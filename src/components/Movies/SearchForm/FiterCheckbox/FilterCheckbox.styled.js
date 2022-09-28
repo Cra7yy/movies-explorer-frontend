@@ -1,12 +1,10 @@
 import styled from 'styled-components'
 
 const StyledFilterCheckbox = styled.div`
+  display: flex;
+  gap: 14px;
+  
   .filter {
-
-    &__block {
-      display: flex;
-      gap: 14px;
-    }
 
     &__checkbox {
       position: absolute;
@@ -30,7 +28,7 @@ const StyledFilterCheckbox = styled.div`
       width: 36px;
       height: 20px;
       border-radius: 20px;
-      background: #3DDC84;
+      background: #EBEBEB;
       box-shadow: inset 0 2px 3px rgba(0, 0, 0, .2);
       transition: .2s;
     }
@@ -43,7 +41,7 @@ const StyledFilterCheckbox = styled.div`
       width: 8px;
       height: 8px;
       border-radius: 10px;
-      background: #FFF;
+      background: #F5F5F5;
       box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
       transition: .2s;
     }
@@ -54,6 +52,7 @@ const StyledFilterCheckbox = styled.div`
 
     &__checkbox:checked + .filter__label:after {
       left: 26px;
+      background: #FFFFFF;
     }
 
     &__checkbox:focus + .filter__label:before {
@@ -75,12 +74,10 @@ const StyledFilterCheckbox = styled.div`
   }
 
   @media (max-width: 1005px) {
+    gap: 16px;
+    justify-content: end;
+    
     .filter {
-
-      &__block {
-        gap: 16px;
-        justify-content: end;
-      }
       
       &__text-mini {
         display: block;
@@ -93,13 +90,8 @@ const StyledFilterCheckbox = styled.div`
   }
 
   @media(max-width: 742px){
-    .filter {
-
-      &__block {
-        gap: 13px;
-        justify-content: center;
-      }
-    }
+    gap: 13px;
+    justify-content: center;
   }
 `
 

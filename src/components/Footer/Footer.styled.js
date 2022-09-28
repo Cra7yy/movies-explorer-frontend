@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledFooter = styled.div`
+const StyledFooter = styled.footer`
   .footer {
     display: flex;
     flex-direction: column;
@@ -40,13 +40,13 @@ const StyledFooter = styled.div`
       line-height: 16px;
       transition: opacity .3s;
     }
-    
+
     &__link:hover {
       opacity: .6;
     }
   }
 
-  @media (max-width: 769px){
+  @media (max-width: 769px) {
     .footer {
 
       &__title {
@@ -54,8 +54,8 @@ const StyledFooter = styled.div`
       }
     }
   }
-  
-  @media (max-width: 480px){
+
+  @media (max-width: 480px) {
     .footer {
       display: flex;
       flex-direction: column;

@@ -1,6 +1,5 @@
 import StyledLogin from './Login.styled'
 import { Link } from 'react-router-dom'
-import { StyledContainer } from '../GlobalStyled/Global.styled'
 import { useNavigate } from 'react-router-dom'
 import Logo from '../Logo/Logo'
 
@@ -14,9 +13,8 @@ const Login = ({ clickOpenLogin }) => {
   }
 
   return (
-    <StyledContainer>
       <StyledLogin>
-        <section className='login'>
+        <div className='login'>
           <Logo/>
           <h2 className='login__title'>Рады видеть!</h2>
           <form className='login__form'>
@@ -26,14 +24,13 @@ const Login = ({ clickOpenLogin }) => {
               <p className='login__text'>Пароль</p>
               <input type='password' className='login__input'/>
             </fieldset>
-            <button onClick={ handleSubmit } className='login__submit' type='submit'>Войти</button>
+            <button type='submit' onClick={ handleSubmit } className='login__submit' type='submit'>Войти</button>
           </form>
           <p className='login__subtitle'>Ещё не зарегистрированы?
             <Link className='login__link' to='/signup'> Регистрация</Link>
           </p>
-        </section>
+        </div>
       </StyledLogin>
-    </StyledContainer>
   )
 }
 

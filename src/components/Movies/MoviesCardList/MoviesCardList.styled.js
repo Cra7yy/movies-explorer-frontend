@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
-const StyledMoviesCardList = styled.div`
+const StyledMoviesCardList = styled.section`
+  margin-top: 70px;
+  
   .movies {
-    margin-top: 70px;
 
     &__list {
       width: 100%;
@@ -51,10 +52,11 @@ const StyledMoviesCardList = styled.div`
   }
 
   @media(max-width: 1005px){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
     .movies {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
 
       &__list {
         max-width: 875px;
@@ -68,8 +70,9 @@ const StyledMoviesCardList = styled.div`
   }
   
   @media(max-width: 742px){
+    margin-top: 40px;
+    
     .movies {
-      margin-top: 40px;
 
       &__list {
         grid-template-columns: minmax(min-content, 1fr);

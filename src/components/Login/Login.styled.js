@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-const StyledLogin = styled.div`
+const StyledLogin = styled.section`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   
   .login {
-    max-width: 396px;
+    width: 396px;
 
     &__img {
     }
@@ -81,13 +81,17 @@ const StyledLogin = styled.div`
 
   @media(max-width: 480px){
     .login {
-      max-width: 260px;
+      width: 260px;
       display: flex;
       flex-direction: column;
       align-items: center;
 
       &__title {
         margin: 50px 0 60px;
+      }
+      
+      &__fieldset {
+        width: 260px;
       }
 
       &__submit {

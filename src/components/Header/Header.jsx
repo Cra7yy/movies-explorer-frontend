@@ -17,7 +17,7 @@ const Header = ({ isLogin }) => {
       <div className={ location.pathname === '/' ? 'background__color' : '' }>
         <StyledContainer>
 
-          <header className='header'>
+          <div className='header'>
             <Logo/>
             <div className={ isLogin ? 'none' : 'navigation' }>
               <Link className='navigation__link' to='/signup'>Регистрация</Link>
@@ -69,7 +69,7 @@ const Header = ({ isLogin }) => {
             </div>
 
 
-          </header>
+          </div>
 
         </StyledContainer>
       </div>

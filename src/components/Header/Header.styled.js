@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   .background__color {
     background-color: #073042;
   }

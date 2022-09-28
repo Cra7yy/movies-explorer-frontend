@@ -1,28 +1,19 @@
 import styled from 'styled-components'
 
-const StyledRegister = styled.div`
+const StyledRegister = styled.section`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
   .register {
-    max-width: 396px;
-
-    &__img {
-    }
+    width: 396px;
 
     &__title {
       font-weight: 500;
       font-size: 24px;
       line-height: 29px;
       margin: 40px 0 30px;
-    }
-
-    &__form {
-    }
-
-    &__fieldset {
     }
 
     &__text {

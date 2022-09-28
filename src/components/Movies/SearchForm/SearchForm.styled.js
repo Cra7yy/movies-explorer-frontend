@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
-const StyledSearchForm = styled.div`
+const StyledSearchForm = styled.section`
+  padding: 70px 0 48px;
+
   .search {
-    padding: 70px 0 48px;
 
     &__form {
     }
@@ -18,7 +19,6 @@ const StyledSearchForm = styled.div`
     &__form-input {
       background-color: #202020;
       height: 34px;
-      width: 100%;
       font-weight: 500;
       font-size: 28px;
       line-height: 34px;
@@ -39,11 +39,11 @@ const StyledSearchForm = styled.div`
       border-radius: 48px;
       transition: transform .25s;
     }
-    
+
     &__form-button:hover {
       transform: scale(1.025);
     }
-    
+
     &__form-button:active {
       transform: scale(0.95);
     }
@@ -58,20 +58,11 @@ const StyledSearchForm = styled.div`
       margin: 13px 0 32px;
     }
   }
-  
-  @media(max-width: 1005px){
-    .search {
-      padding: 80px 0 61px;
 
-      &__form-border {
-        margin: 13px 0 30px;
-      }
-    }
-  }
-  
-  @media(max-width: 1005px){
+  @media (max-width: 1005px) {
+    padding: 80px 0 61px;
+
     .search {
-      padding: 80px 0 61px;
 
       &__form-border {
         margin: 13px 0 30px;
@@ -79,9 +70,21 @@ const StyledSearchForm = styled.div`
     }
   }
 
-  @media(max-width: 742px){
+  @media (max-width: 1005px) {
+    padding: 80px 0 61px;
+
     .search {
-      padding: 90px 0 50px;
+
+      &__form-border {
+        margin: 13px 0 30px;
+      }
+    }
+  }
+
+  @media (max-width: 742px) {
+    padding: 90px 0 50px;
+
+    .search {
 
       &__form {
       }

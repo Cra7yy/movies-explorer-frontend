@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
 const StyledPromo = styled.div`
+  padding-top: 75px;
   .promo {
-    padding-top: 75px;
-
     &__block {
       display: flex;
       justify-content: space-between;
@@ -51,6 +50,7 @@ const StyledPromo = styled.div`
   }
 
   @media (max-width: 769px) {
+    padding-top: 140px;
     .promo {
       
       &__block {
@@ -89,6 +89,7 @@ const StyledPromo = styled.div`
   }
   
   @media(max-width: 480px){
+    padding-top: 70px;
     .promo {
 
       &__img {
