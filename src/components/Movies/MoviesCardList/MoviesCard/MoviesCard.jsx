@@ -1,14 +1,19 @@
 import StyledMoviesCard from './MoviesCard.styled'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
-const MoviesCard = () => {
-  const [like, setLike] = useState(true)
-  const location = useLocation()
+const MoviesCard = ({ movie,
+                      handleSaveMovie,
+                      saveMovies,
+                      handleDeleteMovie
+}) => {
+  const [like, setLike] = useState(false)
 
-  const handleLike = () => {
-    setLike(!like)
-  }
+  useEffect(() => {
+    setLike(!saveMovies.some((el)=> movie.id === el.movieId))
+  },[saveMovies])
+
+  const location = useLocation()
 
   const actionButton = () => {
     return location.pathname === '/saved-movies'
@@ -21,15 +26,21 @@ const MoviesCard = () => {
 
   return (
     <StyledMoviesCard className='movies__item'>
-        <img className='movies__img' src='/images/film.png' alt='фильм'/>
-        <div className='movies__block'>
-          <h4 className='movies__title'>33 слова о дизайне</h4>
-          <button type='button' className='movies__like' onClick={ handleLike }>
-            { actionButton() }
-          </button>
-        </div>
-        <div className='movies__border'></div>
-        <p className='movies__time'>1ч 42м</p>
+      <a className='movies__link-a' href={ movie.trailerLink }>
+        <img className='movies__img' src={ location.pathname === '/movies' ?
+          `https://api.nomoreparties.co${ movie.image.url }` : movie.image } alt={ movie.nameRU }/>
+      </a>
+      <div className='movies__block'>
+        <h4 className='movies__title'>{ movie.nameRU }</h4>
+        <button type='button' className='movies__like'
+                onClick={ () => { location.pathname === '/movies'
+                  ? handleSaveMovie(movie)
+                  : handleDeleteMovie(movie) } }>
+          { actionButton() }
+        </button>
+      </div>
+      <div className='movies__border'></div>
+      <p className='movies__time'>{ Math.trunc(movie.duration / 60) }ч { movie.duration % 60 }м</p>
     </StyledMoviesCard>
   )
 }

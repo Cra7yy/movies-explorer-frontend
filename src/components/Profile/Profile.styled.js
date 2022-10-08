@@ -64,6 +64,7 @@ const StyledProfile = styled.section`
     }
 
     &__redact {
+      background-color: #202020;
       width: 100px;
       margin-top: 220px;
       font-size: 13px;
@@ -74,6 +75,12 @@ const StyledProfile = styled.section`
     
     &__redact:hover {
       opacity: .6;
+    }
+    
+    &__err {
+      font-size: 10px;
+      line-height: 12px;
+      color: #EE3465;
     }
 
     &__link {

@@ -66,6 +66,13 @@ const StyledHeader = styled.header`
       transition: opacity .3s;
     }
 
+    &__active {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 18px;
+      opacity: .6;
+    }
+
     &__link:hover {
       opacity: .6;
     }
