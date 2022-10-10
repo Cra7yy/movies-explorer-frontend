@@ -25,17 +25,17 @@ const Header = ({ isLogin }) => {
             </div>
 
             <div className={ isLogin ? 'navigation-movies' : 'none' }>
-              <Link className={ location.pathname === '/movies'
+              <Link className={ location.pathname === '/saved-movies' || location.pathname === '/profile'
                 ? 'navigation-movies__active'
                 : 'navigation-movies__link' }
                     to='/movies'>Фильмы</Link>
-              <Link className={ location.pathname === '/saved-movies'
+              <Link className={ location.pathname === '/movies' || location.pathname === '/profile'
                 ? 'navigation-movies__active'
                 : 'navigation-movies__link' }
                     to='/saved-movies'>Сохранённые фильмы</Link>
             </div>
             <div className={ isLogin ? 'navigation-account' : 'none' }>
-              <Link className={ location.pathname === '/profile'
+              <Link className={ location.pathname === '/saved-movies' || location.pathname === '/movies'
                 ? 'navigation-movies__active'
                 : 'navigation-movies__link' }
                     to='/profile'>Аккаунт</Link>

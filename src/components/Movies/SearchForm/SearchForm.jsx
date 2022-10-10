@@ -5,13 +5,17 @@ import { useLocation } from 'react-router-dom'
 
 const SearchForm = ({ handleSearch,
                       durationSwitch,
-                      setText,
-                      handleOpenPopup
+                      handleInputError,
+                      deleteInputError
 }) => {
 
-  const localStorageValue = localStorage.getItem('saveSearchValue')
   const location = useLocation()
-  const [checked, setChecked] = useState(false)
+  const localStorageValue = location.pathname === '/movies'
+    ? localStorage.getItem('SearchValue')
+    : ''
+
+  const check = location.pathname === '/movies' ? JSON.parse(localStorage.getItem('check')) : false
+  const [checked, setChecked] = useState(check)
   const [value, setValue] = useState(localStorageValue ?? '')
 
   const changeCheckbox = () => {
@@ -20,21 +24,29 @@ const SearchForm = ({ handleSearch,
 
   const handleSubmitForm = (event) => {
     event.preventDefault()
-    setChecked(false)
-    handleSearch(value)
+    if(value === ''){
+      handleInputError()
+      localStorage.removeItem('filtered')
+    }else{
+      deleteInputError()
+      handleSearch(value)
+    }
   }
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
       setChecked(false)
       handleSearch(value)
-      setValue('')
+      // setValue('')
     }
   }, [location])
 
   useEffect(() => {
     if (location.pathname === '/movies') {
-      localStorage.setItem('saveSearchValue', value)
+      localStorage.setItem('SearchValue', value)
+      localStorage.setItem('check', checked)
+    }else if(location.pathname === '/saved-movies'){
+      localStorage.setItem('searchSaveValue', value)
       localStorage.setItem('saveCheck', checked)
     }
   }, [value, checked])
@@ -42,6 +54,7 @@ const SearchForm = ({ handleSearch,
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
+      handleSearch(localStorageValue)
       durationSwitch(checked)
     }
     if (location.pathname === '/movies') {
@@ -52,13 +65,6 @@ const SearchForm = ({ handleSearch,
 
   const changeInput = (event) => {
     setValue(event.target.value)
-  }
-
-  const click = () => {
-    if (value === '') {
-      setText('нужновести ввести ключевое слово')
-      handleOpenPopup()
-    }
   }
 
   return (
@@ -74,9 +80,10 @@ const SearchForm = ({ handleSearch,
                    className='search__form-input'
                    autoComplete='off'
                    required
+
             />
           </fieldset>
-          <button className='search__form-button' type='submit' onClick={ click }>
+          <button className='search__form-button' type='submit'  formNoValidate>
             <img src='/images/search.svg' alt='Поиск' className='search__form-icon'/>
           </button>
         </div>

@@ -76,11 +76,27 @@ const StyledProfile = styled.section`
     &__redact:hover {
       opacity: .6;
     }
+
+    &__disablet {
+      background-color: #202020;
+      width: 100px;
+      margin-top: 220px;
+      font-size: 13px;
+      line-height: 16px;
+      opacity: .6;
+      cursor: default;
+    }
     
     &__err {
       font-size: 10px;
       line-height: 12px;
       color: #EE3465;
+    }
+    
+    &__active {
+      font-size: 10px;
+      line-height: 12px;
+      color: #3DDC84;
     }
 
     &__link {

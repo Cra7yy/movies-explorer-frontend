@@ -12,15 +12,14 @@ const SaveMovies = ({ saveMovies,
                       savedDurationSwitch
 }) => {
 
-  const [text, setText] = useState()
-  const [openPopup,setOpenPopup] = useState(false)
+  const [errorInput, setErrorInput] = useState(false)
 
-  const handleOpenPopup = () =>{
-    setOpenPopup(true)
+  const handleInputError = () => {
+    setErrorInput(true)
   }
 
-  const handleClosePopup = () => {
-    setOpenPopup(false)
+  const deleteInputError = () => {
+    setErrorInput(false)
   }
 
   return (
@@ -28,16 +27,14 @@ const SaveMovies = ({ saveMovies,
       <SearchForm
         durationSwitch={ savedDurationSwitch }
         handleSearch={ handleSearch }
-        setText={setText}
-        handleOpenPopup={handleOpenPopup}
+        handleInputError={ handleInputError }
+        deleteInputError={deleteInputError}
       />
       <InfoTooltip
-        text={ text }
         err={ false }
-        onClose={ handleClosePopup }
-        isOpen={ openPopup }
       />
       <MoviesCardList
+        errorInput={ errorInput }
         saveMovies={ saveMovies }
         handleSaveMovie={ handleSaveMovie }
         handleDeleteMovie={ handleDeleteMovie }

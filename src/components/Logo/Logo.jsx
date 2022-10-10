@@ -4,7 +4,7 @@ const Logo = () => {
   const location = useLocation()
 
   return (
-    <Link to={ (location.pathname === '/signin' || '/signup') && '' }>
+    <Link to='/'>
       <img className='logo__img' src='/images/logo.svg' alt='логотип'/>
     </Link>
   )

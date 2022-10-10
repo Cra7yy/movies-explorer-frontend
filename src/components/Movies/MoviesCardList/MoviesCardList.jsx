@@ -9,7 +9,8 @@ const MoviesCardList = ({ handleSaveMovie,
                           handleDeleteMovie,
                           movieCards,
                           isMoviesError,
-                          preloader
+                          preloader,
+                          errorInput
 }) => {
   const [width, setWidth] = useState(window.innerWidth)
   const [moreMovies, setMoreMovies] = useState(4)
@@ -49,11 +50,13 @@ const MoviesCardList = ({ handleSaveMovie,
     }
   },[numberOfMovies,movieCards])
 
+  const booleanSearch = localStorage.SearchValue === ''
+
   return (
     <StyledMoviesCardList className='movies'>
       <Preloader preloader={preloader}/>
       <ul className='movies__list'>
-        { movieCards.map((el, id) => {
+        {!errorInput && movieCards !== null && movieCards.map((el, id) => {
           return (<MoviesCard
             key={ el.id ? el.id : id }
             movie={ el }
@@ -63,9 +66,11 @@ const MoviesCardList = ({ handleSaveMovie,
           />)
         }).slice(0, numberOfMovies) }
       </ul>
+      {!errorInput && movieCards.length === 0 && !booleanSearch && location.pathname === '/movies' && <p className='movies__text'>Ничего не найдено</p>}
+      {errorInput && <p className='movies__text'>Нужно ввести ключевое слово</p> }
       {isMoviesError && <p className='movies__text'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>}
-      {movieCards.length === 0 && location.pathname === '/saved-movies' && <p className='movies__text'>Вы пока что ничего не добавили в избранное</p> }
-      {movieCards.length === 0 && location.pathname === '/movies' && !isMoviesError ? <p className='movies__text'>Введите название фильма в поисковой строке</p>
+      {!errorInput && movieCards.length === 0 && location.pathname === '/saved-movies' && !booleanSearch && !isMoviesError && <p className='movies__text'>Вы пока что ничего не добавили в избранное</p> }
+      {!errorInput && movieCards.length === 0 && location.pathname === '/movies' && booleanSearch && !isMoviesError ? <p className='movies__text'>Введите название фильма в поисковой строке</p>
         :<button type='button' className={ displayButton ? 'none' : 'movies__btn' } onClick={ addMoreMovies }>Ещё</button>
       }
     </StyledMoviesCardList>

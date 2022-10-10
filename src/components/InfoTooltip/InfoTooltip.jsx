@@ -1,14 +1,14 @@
 import { StyledInfoTooltip } from './InfoTooltip.styled'
 
-const InfoTooltip = ({ isOpen, onClose, err, text }) => {
+const InfoTooltip = ({ isOpen, onClose }) => {
 
   return (
     <StyledInfoTooltip>
       <div className={ `popup ${ isOpen && 'popup_opened' }` }>
         <div className='popup__registration'>
           <button type='button' className='popup__cross' onClick={ onClose }></button>
-          <img src={ err ? '/images/true.svg' : '/images/default.svg' } alt='картинка' className='popup__img'/>
-          <p className='popup__text'>{ text }</p>
+          <img src='/images/true.svg' alt='картинка' className='popup__img'/>
+          <p className='popup__text'>данные успешно изменены</p>
         </div>
       </div>
     </StyledInfoTooltip>

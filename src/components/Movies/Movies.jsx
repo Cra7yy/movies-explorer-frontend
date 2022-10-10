@@ -2,9 +2,10 @@ import { StyledContainer } from '../GlobalStyled/Global.styled'
 import SearchForm from './SearchForm/SearchForm'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import InfoTooltip from '../InfoTooltip/InfoTooltip'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const Movies = ({ handleSaveMovie,
+const Movies = ({
+                  handleSaveMovie,
                   saveMovies,
                   handleDeleteMovie,
                   movieCards,
@@ -12,17 +13,16 @@ const Movies = ({ handleSaveMovie,
                   handleSearch,
                   isMoviesError,
                   preloader
-}) => {
+                }) => {
 
-  const [text, setText] = useState()
-  const [openPopup,setOpenPopup] = useState(false)
+  const [errorInput, setErrorInput] = useState(false)
 
-  const handleOpenPopup = () =>{
-    setOpenPopup(true)
+  const handleInputError = () => {
+    setErrorInput(true)
   }
 
-  const handleClosePopup = () => {
-    setOpenPopup(false)
+  const deleteInputError = () => {
+    setErrorInput(false)
   }
 
   return (
@@ -30,18 +30,16 @@ const Movies = ({ handleSaveMovie,
       <SearchForm
         durationSwitch={ durationSwitch }
         handleSearch={ handleSearch }
-        setText={setText}
-        handleOpenPopup={handleOpenPopup}
+        handleInputError={ handleInputError }
+        deleteInputError={deleteInputError}
       />
       <InfoTooltip
-        text={ text }
         err={ false }
-        onClose={ handleClosePopup }
-        isOpen={ openPopup }
       />
       <MoviesCardList
-        preloader={preloader}
-        isMoviesError={isMoviesError}
+        errorInput={ errorInput }
+        preloader={ preloader }
+        isMoviesError={ isMoviesError }
         movieCards={ movieCards }
         handleSaveMovie={ handleSaveMovie }
         saveMovies={ saveMovies }

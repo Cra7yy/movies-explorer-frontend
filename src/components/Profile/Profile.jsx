@@ -3,15 +3,23 @@ import { Link } from 'react-router-dom'
 import { useContext, useState, useEffect } from 'react'
 import CurrentUserContext from '../../context/CurrentUserContext'
 import { useFormWithValidation } from '../../hook/useFormWithValidation'
+import InfoTooltip from '../InfoTooltip/InfoTooltip'
 
-const Profile = ({ signOut,
+const Profile = ({
+                   signOut,
                    handleProfile,
-                   errorProfileMessage
-}) => {
+                   errorProfileMessage,
+                   profileMessage,
+                   setProfileMessage,
+                   setErrorProfileMessage,
+                   isOpen,
+                   onClose
+                 }) => {
 
-  const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
   const currentUser = useContext(CurrentUserContext)
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation()
+  const [buttonClick, setButtonClick] = useState(false)
+
 
   useEffect(() => {
     if (currentUser) {
@@ -20,8 +28,17 @@ const Profile = ({ signOut,
   }, [currentUser, resetForm])
 
   useEffect(() => {
-    setDisplayErrorMessage(false)
-  }, [values])
+    if ((values.name !== currentUser.name || values.email !== currentUser.email) && isValid) {
+      setButtonClick(true)
+    } else {
+      setButtonClick(false)
+    }
+  }, [values, isValid])
+
+  setTimeout(() => {
+    setProfileMessage(false)
+    setErrorProfileMessage(false)
+  }, 30000)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -30,6 +47,10 @@ const Profile = ({ signOut,
 
   return (
     <StyledProfile>
+      <InfoTooltip
+        isOpen={ isOpen }
+        onClose={ onClose }
+      />
       <div className='profile'>
         <h2 className='profile__title'>Привет, { currentUser.name }</h2>
         <form className='profile__form' onSubmit={ handleSubmit }>
@@ -45,7 +66,7 @@ const Profile = ({ signOut,
                 pattern='^[A-Za-zА-Яа-яЁё0-9 /s -]+$'
               />
             </div>
-            <span className='profile__err'>{ errors.name || '' }</span>
+            <span className='profile__err'>{ errors.name }</span>
             <div className='profile__border'></div>
             <div className='profile__block'>
               <p className='profile__text'>E-mail</p>
@@ -58,9 +79,13 @@ const Profile = ({ signOut,
               />
             </div>
             <span className='profile__err'>{ errors.email }</span>
-            { displayErrorMessage && <span className='profile__err'>{ errorProfileMessage }</span> }
+            { buttonClick && errorProfileMessage &&
+              <span className='profile__err'>Не удолось изменить даные профиля</span> }
+            {/*{ buttonClick && profileMessage && <span className='profile__active'>данные успешно изменены</span> }*/}
           </fieldset>
-          <button type='submit' className='profile__redact'>Редактировать</button>
+          <button disabled={ !buttonClick } type='submit' formNoValidate
+                  className={ buttonClick ? 'profile__redact' : 'profile__disablet' }>Редактировать
+          </button>
         </form>
         <Link to='/' className='profile__link' onClick={ signOut }>Выйти из аккаунта</Link>
       </div>

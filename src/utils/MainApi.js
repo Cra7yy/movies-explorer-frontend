@@ -1,5 +1,5 @@
-const BASE_URL = 'https://api.cra7y.movies.nomoredomains.sbs'
-// const BASE_URL = 'http://localhost:3000'
+// const BASE_URL = 'https://api.cra7y.movies.nomoredomains.sbs'
+const BASE_URL = 'http://localhost:3000'
 
 export const saveMovie = (movie, token) => {
   return fetch(`${ BASE_URL }/movies`, {
@@ -17,7 +17,9 @@ export const saveMovie = (movie, token) => {
       year: movie.year,
       description: movie.description,
       image: `https://api.nomoreparties.co${movie.image.url}`,
-      trailerLink: movie?.trailerLink,
+      trailerLink: movie.trailerLink.includes('https:')
+        ? movie.trailerLink
+        : `https://www.youtube.com/results?search_query=${movie.nameEN.replaceAll(' ','')}`,
       nameRU: movie.nameRU,
       nameEN: movie.nameEN || movie.nameRU,
       thumbnail: `https://api.nomoreparties.co${movie.thumbnail}`,

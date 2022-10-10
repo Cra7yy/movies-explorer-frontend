@@ -25,17 +25,11 @@ const App = () => {
   const [preloader, setPreloader] = useState(false)
   const [errorLoginMessage, setErrorLoginMessage] = useState('')
   const [errorRegisterMessage, setErrorRegisterMessage] = useState('')
-  const [errorProfileMessage, setErrorProfileMessage] = useState('')
+  const [errorProfileMessage, setErrorProfileMessage] = useState(false)
+  const [profileMessage, setProfileMessage] = useState(false)
+  const [popup, setPopup] = useState(false)
 
   const token = localStorage.getItem('token')
-
-  useEffect(() => {
-    if (token) {
-      navigate('/movies')
-    } else {
-      navigate('/')
-    }
-  }, [loggedIn])
 
   useEffect(() => {
     if (token) {
@@ -73,7 +67,10 @@ const App = () => {
           console.log(`Фильмы не удалось получить: ${ err }`)
         })
         .finally(() => {
-          setPreloader(false)
+          //установил что бы было видно прилоадер!)
+          setTimeout(() => {
+            setPreloader(false)
+          }, 1000)
         })
     }
   }, [token])
@@ -90,10 +87,13 @@ const App = () => {
           console.log(`Сохраненные фильмы не удалось получить: ${ err }`)
         })
         .finally(() => {
-          setPreloader(false)
+          //установил что бы было видно прилоадер!)
+          setTimeout(() => {
+            setPreloader(false)
+          }, 1000)
         })
     }
-  }, [token, currentUser])
+  }, [token])
 
   const handleRegister = ({ name, email, password }) => {
     mainApi.register(name, email, password)
@@ -114,6 +114,8 @@ const App = () => {
           localStorage.setItem('token', data.token)
           setLoggedIn(true)
           setErrorLoginMessage('')
+          // handleApiInfo()
+          navigate('/movies')
         }
       })
       .catch(() => {
@@ -122,10 +124,14 @@ const App = () => {
   }
 
   const signOut = () => {
+    setMovies([])
     setCurrentUser({})
     setLoggedIn(false)
     setSaveMovies([])
     localStorage.removeItem('filtered')
+    localStorage.removeItem('SearchValue')
+    localStorage.removeItem('searchSaveValue')
+    localStorage.removeItem('check')
     localStorage.removeItem('movies')
     localStorage.removeItem('saveCheck')
     localStorage.removeItem('saveSearchValue')
@@ -138,11 +144,15 @@ const App = () => {
   const handleProfile = (user) => {
     mainApi.patchUserInfo(token, user)
       .then((data) => {
-        setCurrentUser(data)
-        setErrorProfileMessage('')
+        if (currentUser.email !== data.email || currentUser.name !== data.email) {
+          setCurrentUser(data)
+          setErrorProfileMessage(false)
+          setPopup(true)
+        }
       })
       .catch(() => {
-        setErrorProfileMessage('Не удолось изменить даные профиля')
+        setPopup(false)
+        setErrorProfileMessage(true)
       })
   }
 
@@ -171,13 +181,30 @@ const App = () => {
   }
 
   const handleSearch = (data) => {
-    const sortedMovieSearch = movies.filter((movie) => {
-      return (movie.nameEN && movie.nameEN.toLowerCase().includes(data.toLowerCase()))
-      || (movie.nameRU && movie.nameRU.toLowerCase().includes(data.toLowerCase()))
-        ? movie : null
-    })
-    localStorage.setItem('filtered', JSON.stringify(sortedMovieSearch))
-    setFilteredMovies(sortedMovieSearch)
+    const value = localStorage.getItem('SearchValue')
+    const moviesArr = JSON.parse(localStorage.getItem('movies'))
+
+    const check = JSON.parse(localStorage.getItem('check'))
+    const filterMovies = JSON.parse(localStorage.getItem('filtered'))
+
+    if (check === true) {
+      const shortsFilm = filterMovies.filter((movie) => movie.duration <= 40)
+      const sortedSavedMovieSearch = shortsFilm.filter((movie) => {
+        return (movie.nameEN && movie.nameEN.toLowerCase().includes(value.toLowerCase()) && value !== '')
+        || (movie.nameRU && movie.nameRU.toLowerCase().includes(value.toLowerCase()) && value !== '')
+          ? movie : null
+      })
+      localStorage.setItem('filtered', JSON.stringify(sortedSavedMovieSearch))
+      setFilteredMovies(sortedSavedMovieSearch)
+    } else {
+      const sortedMovieSearch = moviesArr.filter((movie) => {
+        return (movie.nameEN && movie.nameEN.toLowerCase().includes(value.toLowerCase()) && value !== '')
+        || (movie.nameRU && movie.nameRU.toLowerCase().includes(value.toLowerCase()) && value !== '')
+          ? movie : null
+      })
+      localStorage.setItem('filtered', JSON.stringify(sortedMovieSearch))
+      setFilteredMovies(sortedMovieSearch)
+    }
   }
 
   const handleSearchSaved = (data) => {
@@ -191,8 +218,9 @@ const App = () => {
   }
 
   const durationSwitch = (checked) => {
+    const check = JSON.parse(localStorage.getItem('check'))
     const filterMovies = JSON.parse(localStorage.getItem('filtered'))
-    if (checked === true && filterMovies) {
+    if (check === true && filterMovies) {
       const shortsFilm = filterMovies.filter((movie) => movie.duration <= 40)
       setFilteredMovies(shortsFilm)
     } else {
@@ -203,11 +231,15 @@ const App = () => {
   const savedDurationSwitch = (checked) => {
     const saveMoviesFilter = JSON.parse(localStorage.getItem('savedFilter'))
     if (checked === true && saveMoviesFilter) {
-      const shortsFilm = saveMovies.filter((movie) => movie.duration <= 40)
+      const shortsFilm = saveMoviesFilter.filter((movie) => movie.duration <= 40)
       setSavedMoviesFilter(shortsFilm)
     } else {
       setSavedMoviesFilter(saveMoviesFilter)
     }
+  }
+
+  const handleClosePopup = () => {
+    setPopup(false)
   }
 
   return (
@@ -256,9 +288,14 @@ const App = () => {
             element={
               <ProtectedRoute loggedIn={ loggedIn }>
                 <Profile
+                  setProfileMessage={ setProfileMessage }
+                  profileMessage={ profileMessage }
                   signOut={ signOut }
                   handleProfile={ handleProfile }
                   errorProfileMessage={ errorProfileMessage }
+                  setErrorProfileMessage={ setErrorProfileMessage }
+                  isOpen={popup}
+                  onClose={handleClosePopup}
                 />
               </ProtectedRoute>
             }
