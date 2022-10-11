@@ -1,5 +1,5 @@
-// const BASE_URL = 'https://api.cra7y.movies.nomoredomains.sbs'
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://api.cra7y.movies.nomoredomains.sbs'
+// const BASE_URL = 'http://localhost:3000'
 
 export const saveMovie = (movie, token) => {
   return fetch(`${ BASE_URL }/movies`, {
