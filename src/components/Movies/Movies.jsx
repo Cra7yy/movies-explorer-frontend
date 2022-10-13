@@ -2,7 +2,7 @@ import { StyledContainer } from '../GlobalStyled/Global.styled'
 import SearchForm from './SearchForm/SearchForm'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import InfoTooltip from '../InfoTooltip/InfoTooltip'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const Movies = ({
                   handleSaveMovie,

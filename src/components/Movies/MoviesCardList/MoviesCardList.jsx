@@ -67,12 +67,14 @@ const MoviesCardList = ({ handleSaveMovie,
         }).slice(0, numberOfMovies) }
       </ul>
       {!errorInput && movieCards.length === 0 && !booleanSearch && location.pathname === '/movies' && <p className='movies__text'>Ничего не найдено</p>}
-      {errorInput && <p className='movies__text'>Нужно ввести ключевое слово</p> }
       {isMoviesError && <p className='movies__text'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>}
-      {!errorInput && movieCards.length === 0 && location.pathname === '/saved-movies' && !booleanSearch && !isMoviesError && <p className='movies__text'>Вы пока что ничего не добавили в избранное</p> }
-      {!errorInput && movieCards.length === 0 && location.pathname === '/movies' && booleanSearch && !isMoviesError ? <p className='movies__text'>Введите название фильма в поисковой строке</p>
+      {!errorInput && movieCards.length === 0 && location.pathname === '/saved-movies' && !isMoviesError && <p className='movies__text'>Вы пока что ничего не добавили в избранное</p> }
+
+      { errorInput ?
+        ( errorInput && <p className='movies__text'>Нужно ввести ключевое слово</p> )
+        :( movieCards.length === 0 && !errorInput && location.pathname === '/movies' && booleanSearch && !isMoviesError ? <p className='movies__text'>Введите название фильма в поисковой строке</p>
         :<button type='button' className={ displayButton ? 'none' : 'movies__btn' } onClick={ addMoreMovies }>Ещё</button>
-      }
+        ) }
     </StyledMoviesCardList>
   )
 }

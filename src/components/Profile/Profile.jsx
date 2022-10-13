@@ -20,7 +20,6 @@ const Profile = ({
   const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation()
   const [buttonClick, setButtonClick] = useState(false)
 
-
   useEffect(() => {
     if (currentUser) {
       resetForm(currentUser, {}, true)

@@ -28,21 +28,28 @@ const App = () => {
   const [errorProfileMessage, setErrorProfileMessage] = useState(false)
   const [profileMessage, setProfileMessage] = useState(false)
   const [popup, setPopup] = useState(false)
+  const [reloading, setReloading] = useState(false)
 
   const token = localStorage.getItem('token')
 
   useEffect(() => {
     if (token) {
+      setPreloader(true)
       mainApi.getApiUserInfo(token)
         .then(res => {
           setCurrentUser(res)
+          setReloading(true)
         })
         .catch(err => console.log(`Имя пользователя не получено: ${ err }`))
+        .finally(() => setPreloader(false))
+    } else {
+      signOut()
     }
   }, [token])
 
   useEffect(() => {
     if (token) {
+      setPreloader(true)
       mainApi.getContent(token)
         .then((res) => {
           if (res) {
@@ -50,34 +57,31 @@ const App = () => {
           }
         })
         .catch(err => console.log(err))
+        .finally(() => setPreloader(false))
     }
   }, [token])
 
-  useEffect(() => {
+  const handleGetMovies = () => {
     if (token) {
       setPreloader(true)
       moviesApi.getMovies()
         .then((res) => {
           localStorage.setItem('movies', JSON.stringify(res))
-          setMovies(JSON.parse(localStorage.getItem('movies')))
+          // setMovies(JSON.parse(localStorage.getItem('movies')))
+          setMovies(res)
           setIsMoviesError(false)
         })
         .catch((err) => {
           setIsMoviesError(true)
           console.log(`Фильмы не удалось получить: ${ err }`)
         })
-        .finally(() => {
-          //установил что бы было видно прилоадер!)
-          setTimeout(() => {
-            setPreloader(false)
-          }, 1000)
-        })
+        .finally(() => setPreloader(false))
     }
-  }, [token])
+  }
 
   useEffect(() => {
     if (token && currentUser !== null) {
-      setPreloader(true)
+      // setPreloader(true)
       mainApi.getSavedMovies(token)
         .then(res => {
           localStorage.setItem('savedMovies', JSON.stringify(res.filter((i) => i.owner === currentUser._id)))
@@ -86,41 +90,40 @@ const App = () => {
         .catch((err) => {
           console.log(`Сохраненные фильмы не удалось получить: ${ err }`)
         })
-        .finally(() => {
-          //установил что бы было видно прилоадер!)
-          setTimeout(() => {
-            setPreloader(false)
-          }, 1000)
-        })
     }
-  }, [token])
+  }, [token, currentUser])
 
   const handleRegister = ({ name, email, password }) => {
+    setPreloader(true)
     mainApi.register(name, email, password)
-      .then(() => {
-        handleLogin({ email, password })
+      .then((data) => {
+        if (data._id) {
+          handleLogin({ email, password })
+        }
       })
       .then(() => navigate('/movies'))
       .catch(err => {
         setErrorRegisterMessage('что то пошло не так ...')
         console.log(err)
       })
+      .finally(() => setPreloader(false))
   }
 
   const handleLogin = ({ email, password }) => {
+    setPreloader(true)
     mainApi.authorize(email, password)
       .then((data) => {
         if (data.token) {
           localStorage.setItem('token', data.token)
           setLoggedIn(true)
           setErrorLoginMessage('')
-          // handleApiInfo()
           navigate('/movies')
         }
       })
       .catch(() => {
         setErrorLoginMessage('Не правильный email или password')
       })
+      .finally(() => setPreloader(false))
   }
 
   const signOut = () => {
@@ -142,6 +145,7 @@ const App = () => {
   }
 
   const handleProfile = (user) => {
+    setPreloader(true)
     mainApi.patchUserInfo(token, user)
       .then((data) => {
         if (currentUser.email !== data.email || currentUser.name !== data.email) {
@@ -154,6 +158,7 @@ const App = () => {
         setPopup(false)
         setErrorProfileMessage(true)
       })
+      .finally(() => setPreloader(false))
   }
 
   const handleSaveMovie = (movie) => {
@@ -163,6 +168,8 @@ const App = () => {
     if (!like) {
       mainApi.saveMovie(movie, token).then(res => {
         setSaveMovies([...saveMovies, res])
+        localStorage.setItem('savedFilter', JSON.stringify([...saveMovies, res]))
+        localStorage.setItem('savedMovies', JSON.stringify([...saveMovies, res]))
       })
     } else {
       const dislike = saveMovies.find((el) => el.movieId === movie.id)
@@ -173,22 +180,28 @@ const App = () => {
   const handleDeleteMovie = (movie) => {
     mainApi.deleteMovie(token, movie._id)
       .then(() => {
-        setSavedMoviesFilter(savedMoviesFilter.filter((el) => el._id !== movie._id))
-        setSaveMovies(saveMovies.filter((el) => el._id !== movie._id))
-        localStorage.setItem('savedFilter', JSON.stringify(saveMovies))
-        localStorage.setItem('savedMovies', JSON.stringify(saveMovies))
+        const card = saveMovies.filter((el) => el._id !== movie._id)
+        setSavedMoviesFilter(card)
+        setSaveMovies(card)
+        localStorage.setItem('savedFilter', JSON.stringify(card))
+        localStorage.setItem('savedMovies', JSON.stringify(card))
+
       })
   }
 
   const handleSearch = (data) => {
     const value = localStorage.getItem('SearchValue')
     const moviesArr = JSON.parse(localStorage.getItem('movies'))
-
     const check = JSON.parse(localStorage.getItem('check'))
-    const filterMovies = JSON.parse(localStorage.getItem('filtered'))
+
+    if (movies.length === 0 && moviesArr === null) {
+      handleGetMovies()
+    }
+
+    const moviesArray = moviesArr === null ? movies : moviesArr
 
     if (check === true) {
-      const shortsFilm = filterMovies.filter((movie) => movie.duration <= 40)
+      const shortsFilm = moviesArray.filter((movie) => movie.duration <= 40)
       const sortedSavedMovieSearch = shortsFilm.filter((movie) => {
         return (movie.nameEN && movie.nameEN.toLowerCase().includes(value.toLowerCase()) && value !== '')
         || (movie.nameRU && movie.nameRU.toLowerCase().includes(value.toLowerCase()) && value !== '')
@@ -197,7 +210,7 @@ const App = () => {
       localStorage.setItem('filtered', JSON.stringify(sortedSavedMovieSearch))
       setFilteredMovies(sortedSavedMovieSearch)
     } else {
-      const sortedMovieSearch = moviesArr.filter((movie) => {
+      const sortedMovieSearch = moviesArray.filter((movie) => {
         return (movie.nameEN && movie.nameEN.toLowerCase().includes(value.toLowerCase()) && value !== '')
         || (movie.nameRU && movie.nameRU.toLowerCase().includes(value.toLowerCase()) && value !== '')
           ? movie : null
@@ -208,7 +221,20 @@ const App = () => {
   }
 
   const handleSearchSaved = (data) => {
-    const sortedMovieSearch = saveMovies.filter((movie) => {
+    const moviesArr = JSON.parse(localStorage.getItem('savedFilter'))
+    const movieArr = []
+
+    if (moviesArr === null && reloading) {
+      setReloading(false)
+      movieArr.push(...saveMovies)
+    } else if (reloading) {
+      setReloading(false)
+      movieArr.push(...moviesArr)
+    } else {
+      movieArr.push(...saveMovies)
+    }
+
+    const sortedMovieSearch = movieArr.filter((movie) => {
       return ((movie.nameEN && movie.nameEN.toLowerCase().includes(data.toLowerCase()))
         || (movie.nameRU && movie.nameRU.toLowerCase().includes(data.toLowerCase())))
         ? movie : null
@@ -294,21 +320,21 @@ const App = () => {
                   handleProfile={ handleProfile }
                   errorProfileMessage={ errorProfileMessage }
                   setErrorProfileMessage={ setErrorProfileMessage }
-                  isOpen={popup}
-                  onClose={handleClosePopup}
+                  isOpen={ popup }
+                  onClose={ handleClosePopup }
                 />
               </ProtectedRoute>
             }
           />
 
         </Route>
-        <Route path='/signup' element={
+        <Route path='signup' element={
           <Register
             handleRegister={ handleRegister }
             errorRegisterMessage={ errorRegisterMessage }/>
         }/>
 
-        <Route path='/signin' element={
+        <Route path='signin' element={
           <Login
             handleLogin={ handleLogin }
             errorLoginMessage={ errorLoginMessage }/>

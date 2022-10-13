@@ -37,7 +37,6 @@ const SearchForm = ({ handleSearch,
     if (location.pathname === '/saved-movies') {
       setChecked(false)
       handleSearch(value)
-      // setValue('')
     }
   }, [location])
 
