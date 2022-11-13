@@ -20,11 +20,11 @@ export const StyledContainer = styled.main`
     max-width: 708px;
     padding: 0 0;
   }
-  
+
   @media (max-width: 769px) {
     padding: 0 15px;
   }
-  
+
   @media (max-width: 480px) {
     max-width: 292px;
     padding: 0 0;

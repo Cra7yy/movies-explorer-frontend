@@ -63,11 +63,21 @@ const StyledHeader = styled.header`
       font-weight: 500;
       font-size: 13px;
       line-height: 18px;
-      transition: opacity .3s;
     }
 
-    &__link:hover {
+    &__active {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 18px;
       opacity: .6;
+      transition: opacity .3s;
+    }
+    
+    &__active:hover {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 18px;
+      opacity: 1;
     }
   }
 

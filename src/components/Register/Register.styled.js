@@ -57,6 +57,19 @@ const StyledRegister = styled.section`
       transition: transform .25s;
     }
 
+    &__submit_disabled {
+      width: 100%;
+      height: 45px;
+      background-color: #F8F8F8;
+      color: #C2C2C2;
+      margin: 69px 0 16px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      border-radius: 3px;
+      transition: transform .25s;
+    }
+
     &__submit:hover {
       transform: scale(1.015);
     }
@@ -102,6 +115,11 @@ const StyledRegister = styled.section`
       }
 
       &__subtitle {
+        font-size: 12px;
+        line-height: 15px;
+      }
+
+      &__submit_disabled {
         font-size: 12px;
         line-height: 15px;
       }

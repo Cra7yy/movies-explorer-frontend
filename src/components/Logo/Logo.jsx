@@ -1,12 +1,11 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const Logo = () =>{
-  const location = useLocation()
+const Logo = () => {
 
-  return(
-      <Link to={(location.pathname == '/signin' || '/signup') && '' }>
-        <img className='logo__img' src='/images/logo.svg' alt='логотип'/>
-      </Link>
+  return (
+    <Link to='/'>
+      <img className='logo__img' src='/images/logo.svg' alt='логотип'/>
+    </Link>
   )
 }
 

@@ -12,6 +12,17 @@ const StyledLogin = styled.section`
     &__img {
     }
 
+    &__err {
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
+      color: #EE3465;
+    }
+
+    &__input-password {
+      color: #EE3465;
+    }
+
     &__title {
       font-weight: 500;
       font-size: 24px;
@@ -50,7 +61,19 @@ const StyledLogin = styled.section`
       height: 45px;
       width: 100%;
       transition: transform .25s;
-    }   
+    }
+
+    &__submit_disabled {
+      margin: 179px 0 16px;
+      background-color: #F8F8F8;
+      color: #C2C2C2;
+      border-radius: 3px;
+      height: 45px;
+      width: 100%;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+    }
     
     &__submit:hover {
       transform: scale(1.015);
@@ -95,6 +118,10 @@ const StyledLogin = styled.section`
       }
 
       &__submit {
+        margin: 267px 0 14px;
+      }
+
+      &__submit_disabled {
         margin: 267px 0 14px;
       }
       

@@ -2,12 +2,16 @@ import styled from 'styled-components'
 
 const StyledMoviesCard = styled.li`
   .movies__item {
+    max-width: 270px;
   }
 
   .movies__img {
+    width: 100%;
+    height: 151px;
   }
 
   .movies__block {
+    max-width: 270px;
     padding: 14px 0 29px;
     display: flex;
     justify-content: space-between;
@@ -28,6 +32,10 @@ const StyledMoviesCard = styled.li`
     justify-content: center;
     align-items: center;
     transition: transform .15s;
+  }
+  
+  .movies__like-a {
+width: 100%;
   }
 
   .movies__like:hover {
@@ -63,16 +71,20 @@ const StyledMoviesCard = styled.li`
   }
   
   @media(max-width: 1172px){
-    width: 315px;
+    max-width: 315px;
 
     .movies__img {
       width: 315px;
       height: 180px;
     }
+
+    .movies__block {
+      max-width: 315px;
+    }
   }
   
-  @media(max-width: 1005px){
-    width: 339px;
+  @media(max-width: 1033px){
+    max-width: 339px;
 
     .movies__img {
       width: 339px;
@@ -80,8 +92,8 @@ const StyledMoviesCard = styled.li`
     }
   }
 
-  @media(max-width: 742px){
-    width: 300px;
+  @media(max-width: 772px){
+    max-width: 300px;
     margin-left: -4px;
 
     .movies__img {

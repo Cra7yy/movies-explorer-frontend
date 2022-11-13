@@ -9,11 +9,11 @@ const NotFound = () => {
   }
 
   return (
-      <StyledNotFound className='not-found'>
-          <h2 className='not-found__title'>404</h2>
-          <p className='not-found__text'>Страница не найдена</p>
-          <Link onClick={ toBack } className='not-found__back'>Назад</Link>
-      </StyledNotFound>
+    <StyledNotFound className='not-found'>
+      <h2 className='not-found__title'>404</h2>
+      <p className='not-found__text'>Страница не найдена</p>
+      <Link onClick={ toBack } className='not-found__back'>Назад</Link>
+    </StyledNotFound>
   )
 }
 
